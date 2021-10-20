@@ -13,8 +13,8 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={"dark"} />
         <StatusBar style="light" backgroundColor="black" />
+        <Navigation colorScheme={"dark"} />
       </SafeAreaProvider>
     );
   }
