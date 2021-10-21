@@ -10,9 +10,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <FlatList
         data={categories.items}
-        renderItem={({item}) => (
-          <HomeCategory category={item} />
-        )}
+        renderItem={({ item }) => <HomeCategory category={item} />}
       />
     </View>
   );
@@ -22,6 +20,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 30,
-    backgroundColor: "black"
+    backgroundColor: "black",
   },
-})
+});

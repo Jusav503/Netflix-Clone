@@ -42,7 +42,7 @@ export default {
                     video: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
                 }, {
                     id: 'episode4',
-                    title: '2. Are you subscribed?',
+                    title: '2. Do you eat?',
                     poster: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/netflix/ep0.jpg',
                     duration: '49m',
                     plot: 'An open-and-shut case becomes anything but when Harvey is accused of an inappropriate dalliance with a married woman.',

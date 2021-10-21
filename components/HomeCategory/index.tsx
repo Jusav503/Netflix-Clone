@@ -23,6 +23,7 @@ const HomeCategory = (props: HomeCategoryProps) => {
           <Image style={styles.poster} source={{ uri: item.poster }} />
         )}
         horizontal
+        showsHorizontalScrollIndicator={false}
       />
     </>
   );
