@@ -1,18 +1,7 @@
-import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  Pressable,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
-import {
-  Feather,
-  FontAwesome5,
-  Ionicons,
-  SimpleLineIcons,
-} from "@expo/vector-icons";
+import React, { useState } from "react";
+import { View, Text, Image, Pressable, TouchableOpacity, FlatList, } from "react-native";
+import { Feather, FontAwesome5, Ionicons, SimpleLineIcons, } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 
 import styles from "./styles";
 import movie from "../../data/movie";
@@ -20,11 +9,14 @@ import EpisodeItem from "../../components/EpisodeItem";
 
 const firstSeason = movie.seasons.items[0];
 const firstEpisode = firstSeason.episodes.items[0];
+
 const MovieDetailsScreen = () => {
+  const [currentSeason, setCurrentSeason] = useState(firstSeason)
+  const seasonNames = movie.seasons.items.map(season => season.name);
   return (
     <View style={styles.container}>
       <FlatList
-        data={firstSeason.episodes.items}
+        data={currentSeason.episodes.items}
         renderItem={({ item }) => <EpisodeItem episode={item} />}
         ListHeaderComponent={
           <View>
@@ -82,6 +74,17 @@ const MovieDetailsScreen = () => {
                 <Text style={{ color: "grey" }}>Share</Text>
               </TouchableOpacity>
             </View>
+            <Picker
+              selectedValue={currentSeason.name}
+              onValueChange={(itemValue, itemIndex) =>
+                {setCurrentSeason(movie.seasons.items[itemIndex])}
+              }
+              style={{color: "white"}}
+              >
+                {seasonNames.map(seasonName => (
+                  <Picker.Item label={seasonName} value={seasonName} key={seasonName} />
+                ))}
+             </Picker>
           </View>
         }
       />
