@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './hooks/useCachedResources';
 import Navigation from './navigation';
+import MovieDetailsScreen from './screens/MovieDetailsScreen';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -14,7 +15,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <StatusBar style="light" backgroundColor="black" />
-        <Navigation colorScheme={"dark"} />
+        <Navigation />
       </SafeAreaProvider>
     );
   }

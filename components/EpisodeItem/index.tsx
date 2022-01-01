@@ -2,18 +2,11 @@ import { Feather } from '@expo/vector-icons';
 import React from 'react'
 import { View, Text, Image } from 'react-native'
 
+import { Episode } from '../../types';
 import styles from './styles'
 
-interface EpisodeItemProps{
-    episode: {
-        id: string,
-        title: string,
-        poster: string,
-        duration: string,
-        plot: string,
-        video: string,
-    }
-}
+interface EpisodeItemProps { episode: Episode }
+
 const EpisodeItem = (props:EpisodeItemProps) => {
     const { episode } = props;
     return (

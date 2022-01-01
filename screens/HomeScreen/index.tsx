@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FlatList, StyleSheet } from "react-native";
-import HomeCategory from "../../components/HomeCategory";
 
+import HomeCategory from "../../components/HomeCategory";
 import { View } from "../../components/Themed";
 import categories from "../../data/categories";
 
