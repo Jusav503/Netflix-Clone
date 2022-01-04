@@ -1,6 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, Image, Pressable, TouchableOpacity, FlatList, } from "react-native";
-import { Feather, FontAwesome5, Ionicons, SimpleLineIcons, } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import {
+  Feather,
+  FontAwesome5,
+  Ionicons,
+  SimpleLineIcons,
+} from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 
 import styles from "./styles";
@@ -12,17 +24,25 @@ const firstSeason = movie.seasons.items[0];
 const firstEpisode = firstSeason.episodes.items[0];
 
 const MovieDetailsScreen = () => {
-  const [currentSeason, setCurrentSeason] = useState(firstSeason)
-  const [currentEpisode, setCurrentEpisode] = useState(firstSeason.episodes.items[0]);
+  const [currentSeason, setCurrentSeason] = useState(firstSeason);
+  const [currentEpisode, setCurrentEpisode] = useState( firstSeason.episodes.items[0] );
 
-  const seasonNames = movie.seasons.items.map(season => season.name);
+  const seasonNames = movie.seasons.items.map((season) => season.name);
 
   return (
-    <View style={[styles.container,{backgroundColor:"#121212"}]}>
-      <VideoPlayer episode={currentEpisode}/>
+    <View style={[styles.container, { backgroundColor: "#121212" }]}>
+      <VideoPlayer episode={currentEpisode} />
       <FlatList
         data={currentSeason.episodes.items}
-        renderItem={({ item }) => <EpisodeItem episode={item} />}
+        renderItem={({ item }) => (
+          <EpisodeItem
+            episode={item}
+            onPress={(episode) => {
+              console.log(episode);
+              setCurrentEpisode(episode);
+            }}
+          />
+        )}
         ListHeaderComponent={
           <View>
             <View style={{ marginVertical: 10 }}>
@@ -77,15 +97,19 @@ const MovieDetailsScreen = () => {
             </View>
             <Picker
               selectedValue={currentSeason.name}
-              onValueChange={(itemValue, itemIndex) =>
-                {setCurrentSeason(movie.seasons.items[itemIndex])}
-              }
-              style={{color: "white"}}
-              >
-                {seasonNames.map(seasonName => (
-                  <Picker.Item label={seasonName} value={seasonName} key={seasonName} />
-                ))}
-             </Picker>
+              onValueChange={(itemValue, itemIndex) => {
+                setCurrentSeason(movie.seasons.items[itemIndex]);
+              }}
+              style={{ color: "white" }}
+            >
+              {seasonNames.map((seasonName) => (
+                <Picker.Item
+                  label={seasonName}
+                  value={seasonName}
+                  key={seasonName}
+                />
+              ))}
+            </Picker>
           </View>
         }
       />
