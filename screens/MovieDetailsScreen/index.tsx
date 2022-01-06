@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,18 +16,30 @@ import {
 import { Picker } from "@react-native-picker/picker";
 
 import styles from "./styles";
-import movie from "../../data/movie";
-import EpisodeItem from "../../components/EpisodeItem";
 import VideoPlayer from "../../components/VideoPlayer";
+import { Episode, Movie, Season } from "../../src/models";
+import { DataStore } from "aws-amplify";
+import { useRoute } from "@react-navigation/native";
 
 const firstSeason = movie.seasons.items[0];
 const firstEpisode = firstSeason.episodes.items[0];
 
 const MovieDetailsScreen = () => {
-  const [currentSeason, setCurrentSeason] = useState(firstSeason);
-  const [currentEpisode, setCurrentEpisode] = useState( firstSeason.episodes.items[0] );
+  const [movie, setMovie] = useState<Movie | undefined>(undefined);
+  const [seasons, setseasons] = useState<Season[]>([]);
+  const [episodes, setepisodes] = useState<Episode[]>([])
+  const [currentSeason, setCurrentSeason] = useState<Season | undefined>(undefined);
+  const [currentEpisode, setCurrentEpisode] = useState<Episode | undefined>(undefined);
+  const seasonNames = seasons ? seasons.map((season) => season.name) : [];
+  const route = useRoute();
 
-  const seasonNames = movie.seasons.items.map((season) => season.name);
+  useEffect(() => {
+    const fetchMovie = async () => {
+      setMovie(await DataStore.query(Movie, route?.params?.id));
+    };
+    fetchMovie();
+  }, []);
+
 
   return (
     <View style={[styles.container, { backgroundColor: "#121212" }]}>
@@ -95,6 +107,7 @@ const MovieDetailsScreen = () => {
                 <Text style={{ color: "grey" }}>Share</Text>
               </TouchableOpacity>
             </View>
+
             <Picker
               selectedValue={currentSeason.name}
               onValueChange={(itemValue, itemIndex) => {
